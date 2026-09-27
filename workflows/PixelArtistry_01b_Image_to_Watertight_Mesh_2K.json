@@ -1,5 +1,5 @@
 {
-  "id": "41180d23-c6bb-4226-966a-3f414e32b34d",
+  "id": "22d2edd7-7da3-4f92-bce0-98051cbc2dda",
   "revision": 0,
   "last_node_id": 334,
   "last_link_id": 1304,
@@ -2006,7 +2006,7 @@
       ],
       "flags": {},
       "order": 40,
-      "mode": 0,
+      "mode": 4,
       "inputs": [
         {
           "name": "mesh",
@@ -2033,7 +2033,7 @@
         true,
         true
       ],
-      "title": "1 \u00b7 Quad Reconstruct (2048)"
+      "title": "1 \u00b7 Quad Reconstruct \u2013 bypassed at 2K (see note)"
     },
     {
       "id": 326,
@@ -2126,7 +2126,7 @@
       "widgets_values": [
         2048,
         2048,
-        12000000,
+        25000000,
         1.0,
         1.5,
         20.0,
@@ -2134,7 +2134,7 @@
         0.0,
         "largest"
       ],
-      "title": "3 \u00b7 WTiVo 2048 / 12M proxy points"
+      "title": "3 \u00b7 WTiVo 2048 / 25M proxy points"
     },
     {
       "id": 328,
@@ -2372,7 +2372,7 @@
       "title": "PixelArtistry \u00b7 Settings (2K preset)",
       "properties": {},
       "widgets_values": [
-        "### 2K preset \u2013 needs 16 GB+ VRAM and 32 GB+ RAM\n\n| Node | Standard (01) | This preset |\n|---|---|---|\n| Shape upsample (`target_resolution`) | 1536 | **2048** |\n| Structure + shape samplers | 12 / 20 steps, cfg 7.5 | **24 / 24 steps, cfg 6** |\n| Quad Reconstruct `resolution` | 1536 | **2048** |\n| WTiVo `input_res` = `final_res` | 1536 | **2048** |\n| WTiVo `proxy_points` | 12M | **12M** (keeps the final file watertight) |\n| LODTailor | 0.001 / max 6M | same |\n\n**Why 12M proxy points at 2K:** more proxy points let WTiVo follow more of the raw surface \u2013 more detail, but also more faces, RAM and time. With 25M, WTiVo's own mesh is clean and watertight (77\u201385M faces, ~17 GB RAM, ~8 min) \u2013 but LODTailor breaks it afterwards, even with its standard settings: it has to decimate a mesh that big, and decimating opens it (holes, loose fragments). With 12M: 43.5M faces, 2.8 min, ~10 GB RAM, and LODTailor's result stays watertight. **Maximum detail for renders:** use 25M and save WTiVo's mesh directly with a *Save 3D Model* node, before LODTailor.\n\nMeasured on an RTX 5080: WTiVo 167 s, whole run ~7.5 min.\n\n---\n### Settings by VRAM (WTiVo)\n\n| VRAM | WTiVo input_res = final_res | proxy_points |\n|---|---|---|\n| 6 GB | 1024 | lower it if you run out of memory |\n| 8 GB+ | 1536 | 12,000,000 (default here) |\n| 16 GB+ | 2048 \u2013 use the 2K preset (01b) | 12,000,000 \u2013 tested end to end |\n\n**Proxy points:** more points let WTiVo follow more of the raw surface \u2013 more detail, but also more faces, RAM and time. 12M is the value that keeps the whole chain watertight in our tests; if you raise it, check the result with Blender's 3D Print Toolbox.\n\n**Quad Reconstruct:** keep `resolution` at 1536. It flattens tiny surface detail \u2013 bypass it (Ctrl+B) if you need that detail.\n\n**WTiVo `lambda_fill`:** 20 works for most models. 10\u201320 for small holes, 30\u201340 for big ones. Too high closes openings you want to keep (hoods, sleeves).\n\n**LODTailor (step 4):** rebuilds WTiVo's 20\u201350M-face mesh with a fine voxel remesh in Blender (`relative_voxel_size` 0.001) and caps it at 6M faces \u2013 lighter, and still closed.\n\n**WTiVo `component_mode` = largest:** keeps only the main piece and drops loose fragments. Switch to `auto` if your model has separate parts you want to keep.\n\n**Holes in the result?** Run again \u2013 the structure seed is set to *randomize*, every run is a new generation.\n\n**3D printing:** don't bypass LODTailor \u2013 WTiVo alone outputs 20\u201350M faces (1\u20132.5 GB as STL), too big for a slicer."
+        "### 2K preset \u2013 needs 16 GB+ VRAM and 32 GB+ RAM\n\n| Node | Standard (01) | This preset |\n|---|---|---|\n| Shape upsample (`target_resolution`) | 1536 | **2048** |\n| Structure + shape samplers | 12 / 20 steps, cfg 7.5 | **24 / 24 steps, cfg 6** |\n| Quad Reconstruct | on, 1536 | **bypassed** |\n| WTiVo `input_res` = `final_res` | 1536 | **2048** |\n| WTiVo `proxy_points` | 12M | **25M** |\n| LODTailor | 0.001 / max 6M | same |\n\n**Why Quad Reconstruct is bypassed at 2K:** at 2048 its output made WTiVo's mesh balloon to 77\u201385M faces (~17 GB RAM with 25M proxy points), and LODTailor could no longer reduce it without breaking it (holes, loose fragments). Without Quad, the same 25M proxy points give a 43M-face mesh that stays watertight through the whole chain. WTiVo's `largest` mode already removes the floating fragments Quad would clean up. If a generation is very messy, switch Quad back on (Ctrl+B) and lower `proxy_points` to 12M.\n\n**Loose pieces:** LODTailor can leave many small separate but closed pieces (299 in our test). Fine for renders and games; for printing, check them in Blender (Edit Mode \u2192 P \u2192 By Loose Parts).\n\nMeasured on an RTX 5080: WTiVo 3.5 min (43M faces, watertight, 1 piece), ~11 GB RAM and ~5 GB VRAM for WTiVo, LODTailor result 3.25M faces and watertight, whole run ~7.5 min.\n\n---\n### Settings by VRAM (WTiVo)\n\n| VRAM | WTiVo input_res = final_res | proxy_points |\n|---|---|---|\n| 6 GB | 1024 | lower it if you run out of memory |\n| 8 GB+ | 1536 | 12,000,000 (default here) |\n| 16 GB+ | 2048 \u2013 use the 2K preset (01b) | 25,000,000 with Quad Reconstruct bypassed (see 01b) |\n\n**Proxy points:** more points let WTiVo follow more of the raw surface \u2013 more detail, but also more faces, RAM and time. At 1536, 12M keeps the whole chain watertight; this 2K preset uses 25M with Quad Reconstruct bypassed \u2013 see above.\n\n**Quad Reconstruct:** keep `resolution` at 1536. It flattens tiny surface detail \u2013 bypass it (Ctrl+B) if you need that detail.\n\n**WTiVo `lambda_fill`:** 20 works for most models. 10\u201320 for small holes, 30\u201340 for big ones. Too high closes openings you want to keep (hoods, sleeves).\n\n**LODTailor (step 4):** rebuilds WTiVo's 20\u201350M-face mesh with a fine voxel remesh in Blender (`relative_voxel_size` 0.001) and caps it at 6M faces \u2013 lighter, and still closed.\n\n**WTiVo `component_mode` = largest:** keeps only the main piece and drops loose fragments. Switch to `auto` if your model has separate parts you want to keep.\n\n**Holes in the result?** Run again \u2013 the structure seed is set to *randomize*, every run is a new generation.\n\n**3D printing:** don't bypass LODTailor \u2013 WTiVo alone outputs 20\u201350M faces (1\u20132.5 GB as STL), too big for a slicer."
       ]
     },
     {
@@ -2396,7 +2396,7 @@
       "title": "PixelArtistry \u00b7 Start here",
       "properties": {},
       "widgets_values": [
-        "# PixelArtistry \u00b7 Image \u2192 Watertight 3D Model \u00b7 2K preset\n\nFree & local ComfyUI workflow by **PixelArtistry**.\n\n## How to use\n1. Load your image in **Load Image** (green group).\n2. Set your Blender path once in **Blender path** (purple group).\n3. Choose the model with **Boolean (Switch to Trellis2)**: `false` = Pixal3D, `true` = Trellis.2\n4. Press **Run**. The watertight model is saved to `ComfyUI/output/3d/`.\n\nSame as workflow 01, with generation, Quad Reconstruct and WTiVo at 2048. Needs 16 GB+ VRAM and 32 GB+ RAM \u2013 see the settings note.\n\n## What happens\nPixal3D / Trellis.2 \u2192 **Quad Reconstruct** cleans the raw mesh \u2192 **WTiVo** makes it watertight \u2192 **LODTailor** makes it lighter (Blender) and keeps it closed \u2192 **Fast Merge** welds duplicate vertices, so slicers see a clean mesh.\n\nSettings for your GPU: see the note in the purple group.\n\n## PixelArtistry\n- Website: https://pixel-artistry.com\n- YouTube: https://www.youtube.com/@PixelArtistry_\n- X: https://x.com/philippsieben\n- Newsletter FutureFrames: https://go.pixel-artistry.com/newsletter\n\n## Built with MostAadTech's nodes\nThe watertight, low-poly and baking steps in this workflow run on free, open-source ComfyUI nodes by **MostAadTech**. He spent over a month building them and was a huge help while these workflows were made \u2013 please show him some love:\n\n- **Quad Reconstruct** \u2013 cleans the raw mesh and removes floating fragments\n- **Memory Cleaner** \u2013 frees VRAM between the heavy steps\n- **WTiVo** \u2013 makes the mesh watertight\n- **LODTailor** \u2013 builds the lighter or low-poly mesh in Blender\n- **Fast Merge** \u2013 welds duplicate vertices for a clean final file\n\n**Follow & support MostAadTech**\n- YouTube: https://www.youtube.com/@MostAadTech\n- Patreon: https://www.patreon.com/cw/MostafaAwad/membership\n- GitHub: https://github.com/Mstafa-awad\n- X: https://x.com/MostAadTech\n\n---\n\nWorkflow built on ComfyUI's official Pixal3D / Trellis.2 template (MIT, \u00a9 Comfy Org)."
+        "# PixelArtistry \u00b7 Image \u2192 Watertight 3D Model \u00b7 2K preset\n\nFree & local ComfyUI workflow by **PixelArtistry**.\n\n## How to use\n1. Load your image in **Load Image** (green group).\n2. Set your Blender path once in **Blender path** (purple group).\n3. Choose the model with **Boolean (Switch to Trellis2)**: `false` = Pixal3D, `true` = Trellis.2\n4. Press **Run**. The watertight model is saved to `ComfyUI/output/3d/`.\n\nSame as workflow 01, with generation and WTiVo at 2048, 25M proxy points and Quad Reconstruct bypassed. Needs 16 GB+ VRAM and 32 GB+ RAM \u2013 see the settings note.\n\n## What happens\nPixal3D / Trellis.2 \u2192 **Quad Reconstruct** cleans the raw mesh \u2192 **WTiVo** makes it watertight \u2192 **LODTailor** makes it lighter (Blender) and keeps it closed \u2192 **Fast Merge** welds duplicate vertices, so slicers see a clean mesh.\n\nSettings for your GPU: see the note in the purple group.\n\n## PixelArtistry\n- Website: https://pixel-artistry.com\n- YouTube: https://www.youtube.com/@PixelArtistry_\n- X: https://x.com/philippsieben\n- Newsletter FutureFrames: https://go.pixel-artistry.com/newsletter\n\n## Built with MostAadTech's nodes\nThe watertight, low-poly and baking steps in this workflow run on free, open-source ComfyUI nodes by **MostAadTech**. He spent over a month building them and was a huge help while these workflows were made \u2013 please show him some love:\n\n- **Quad Reconstruct** \u2013 cleans the raw mesh and removes floating fragments\n- **Memory Cleaner** \u2013 frees VRAM between the heavy steps\n- **WTiVo** \u2013 makes the mesh watertight\n- **LODTailor** \u2013 builds the lighter or low-poly mesh in Blender\n- **Fast Merge** \u2013 welds duplicate vertices for a clean final file\n\n**Follow & support MostAadTech**\n- YouTube: https://www.youtube.com/@MostAadTech\n- Patreon: https://www.patreon.com/cw/MostafaAwad/membership\n- GitHub: https://github.com/Mstafa-awad\n- X: https://x.com/MostAadTech\n\n---\n\nWorkflow built on ComfyUI's official Pixal3D / Trellis.2 template (MIT, \u00a9 Comfy Org)."
       ]
     },
     {

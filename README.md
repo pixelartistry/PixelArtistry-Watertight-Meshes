@@ -56,9 +56,9 @@ It's safe to run again: everything is set back to the tested versions.
 |---|---|---|---|
 | 6 GB | 1024 | lower if you run out of memory | – |
 | 8 GB+ | 1536 (workflow 01/02) | 12,000,000 | WTiVo ~2 min, ~6 GB RAM |
-| 16 GB+ | 2048 (workflow 01b) | 12,000,000 | WTiVo ~3 min, ~10 GB RAM |
+| 16 GB+ | 2048 (workflow 01b, Quad Reconstruct bypassed) | 25,000,000 | WTiVo ~3.5 min, ~11 GB RAM |
 
-More proxy points capture more detail: at 2K, 25M gives a clean, watertight WTiVo mesh (~85M faces, ~17 GB RAM), but LODTailor breaks it afterwards – even with its standard settings – because it has to decimate a mesh that big. 12M keeps the whole chain watertight. For maximum detail in renders, use 25M and save WTiVo's mesh directly, before LODTailor.
+At 2K, Quad Reconstruct is bypassed: its 2048 output made WTiVo's mesh balloon to 85M faces (~17 GB RAM with 25M proxy points), and LODTailor could no longer reduce it without breaking it. Without Quad, 25M proxy points give a 43M-face mesh that stays watertight through the whole chain.
 
 ## Troubleshooting
 
