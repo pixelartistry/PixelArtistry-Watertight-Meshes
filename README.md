@@ -23,7 +23,7 @@ The installer already contains the workflows – you only need the `.bat`. The J
 
 - **A working ComfyUI + TRELLIS.2 setup – follow the [TRELLIS.2 Installation Guide](https://go.pixel-artistry.com/Trellis2InstallationGuide)**
 - Windows 10 or 11, NVIDIA RTX 20 series or newer
-- [ComfyUI Easy-Install](https://github.com/Tavris1/ComfyUI-Easy-Install) (or ComfyUI portable) with Python 3.12 and PyTorch 2.8.0 + CUDA 12.8
+- [ComfyUI Easy-Install](https://github.com/Tavris1/ComfyUI-Easy-Install) with Python 3.12 and PyTorch 2.8.0 + CUDA 12.8
 - [VisualBruno's ComfyUI-Trellis2](https://github.com/visualbruno/ComfyUI-Trellis2) installed – it provides CuMesh and O-Voxel
 - [Blender](https://www.blender.org/download/) – ideally a separate, clean install without add-ons (see Troubleshooting)
 - 32 GB system RAM recommended
