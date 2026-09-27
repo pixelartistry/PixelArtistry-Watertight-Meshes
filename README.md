@@ -58,7 +58,7 @@ It's safe to run again: everything is set back to the tested versions.
 | 8 GB+ | 1536 (workflow 01/02) | 12,000,000 | WTiVo ~2 min, ~6 GB RAM |
 | 16 GB+ | 2048 (workflow 01b) | 12,000,000 | WTiVo ~3 min, ~10 GB RAM |
 
-More proxy points are **not** better: 25M at 2K copied surface noise, needed ~17 GB RAM and produced a mesh that couldn't be reduced cleanly.
+More proxy points capture more detail: at 2K, 25M gives a clean, watertight WTiVo mesh (~85M faces, ~17 GB RAM), but LODTailor breaks it afterwards – even with its standard settings – because it has to decimate a mesh that big. 12M keeps the whole chain watertight. For maximum detail in renders, use 25M and save WTiVo's mesh directly, before LODTailor.
 
 ## Troubleshooting
 
