@@ -4,6 +4,9 @@ Free & local ComfyUI workflows that turn a single image into a **watertight 3D m
 
 ▶ Tutorial and more: [PixelArtistry on YouTube](https://www.youtube.com/@PixelArtistry_)
 
+> [!IMPORTANT]
+> **Before you start:** set up ComfyUI + TRELLIS.2 first with the **[TRELLIS.2 Installation Guide](https://go.pixel-artistry.com/Trellis2InstallationGuide)**. This installer builds on that setup.
+
 ## What's inside
 
 | File | What it does |
@@ -18,6 +21,7 @@ The installer already contains the workflows – you only need the `.bat`. The J
 
 ## Requirements
 
+- **A working ComfyUI + TRELLIS.2 setup – follow the [TRELLIS.2 Installation Guide](https://go.pixel-artistry.com/Trellis2InstallationGuide)**
 - Windows 10 or 11, NVIDIA RTX 20 series or newer
 - [ComfyUI Easy-Install](https://github.com/Tavris1/ComfyUI-Easy-Install) (or ComfyUI portable) with Python 3.12 and PyTorch 2.8.0 + CUDA 12.8
 - [VisualBruno's ComfyUI-Trellis2](https://github.com/visualbruno/ComfyUI-Trellis2) installed – it provides CuMesh and O-Voxel
@@ -26,6 +30,7 @@ The installer already contains the workflows – you only need the `.bat`. The J
 
 ## Install
 
+0. If you haven't yet, set up ComfyUI + TRELLIS.2 with the [TRELLIS.2 Installation Guide](https://go.pixel-artistry.com/Trellis2InstallationGuide).
 1. Download `watertightMeshes_win_installer.bat`.
 2. Put it into your `ComfyUI-Easy-Install\Add-ons` folder (the Easy-Install or portable root folder works too).
 3. Close ComfyUI and double-click the file.
