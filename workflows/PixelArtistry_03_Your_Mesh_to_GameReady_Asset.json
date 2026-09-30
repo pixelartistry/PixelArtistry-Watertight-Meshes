@@ -1,5 +1,5 @@
 {
-  "id": "c8f8bdc5-30a9-4b30-a66a-d55c09bc8b0e",
+  "id": "ba4a34a2-3961-4087-9da0-6da5d037bf78",
   "revision": 0,
   "last_node_id": 350,
   "last_link_id": 1332,
@@ -1100,7 +1100,7 @@
         "Node name for S&R": "PrimitiveBoolean"
       },
       "widgets_values": [
-        false
+        true
       ],
       "widgets_values_named": {
         "value": false
@@ -2473,7 +2473,7 @@
       "title": "PixelArtistry \u00b7 Start here",
       "properties": {},
       "widgets_values": [
-        "# PixelArtistry \u00b7 Your Mesh \u2192 Textured + Game-Ready\n\nFree & local ComfyUI workflow by **PixelArtistry**.\n\n## How to use\n1. Put your mesh into `ComfyUI/input` and type its name in **Your mesh**.\n2. Load the image the mesh was made from in **Load Image**.\n3. Set your Blender path once in **Blender path** (purple group 1).\n4. Choose the texture model with **Boolean (Switch to Trellis2)**.\n5. Press **Run**.\n\n## What happens\nThe **TRELLIS.2 shape encoder** reads your mesh \u2192 Pixal3D / Trellis.2 generate its textures from your image \u2192 baked onto your mesh (`PixelArtistry_textured`) \u2192 **LODTailor** builds a low-poly \u2192 **Bake Forger** bakes all maps onto it \u2192 **Fast Merge** welds duplicate vertices without breaking the UVs (`PixelArtistry_lowpoly`).\n\n## PixelArtistry\n- Website: https://pixel-artistry.com\n- YouTube: https://www.youtube.com/@PixelArtistry_\n- X: https://x.com/philippsieben\n- Newsletter FutureFrames: https://go.pixel-artistry.com/newsletter\n\n## Built with MostAadTech's nodes\nThe watertight, low-poly and baking steps in this workflow run on free, open-source ComfyUI nodes by **MostAadTech**. He spent over a month building them and was a huge help while these workflows were made \u2013 please show him some love:\n\n- **Memory Cleaner** \u2013 frees VRAM between the heavy steps\n- **Trellis2 Mesh Encoder** \u2013 reads your own mesh into TRELLIS.2\n- **CuMesh Decimate** \u2013 fast GPU decimation\n- **LODTailor** \u2013 builds the lighter or low-poly mesh in Blender\n- **Bake Forger** \u2013 bakes the high-poly maps onto the low-poly\n- **Fast Merge** \u2013 welds duplicate vertices for a clean final file\n\n**Follow & support MostAadTech**\n- YouTube: https://www.youtube.com/@MostAadTech\n- Patreon: https://www.patreon.com/cw/MostafaAwad/membership\n- GitHub: https://github.com/Mstafa-awad\n- X: https://x.com/MostAadTech\n\n---\n\nWorkflow built on ComfyUI's official Pixal3D / Trellis.2 template (MIT, \u00a9 Comfy Org)."
+        "# PixelArtistry \u00b7 Your Mesh \u2192 Textured + Game-Ready\n\nFree & local ComfyUI workflow by **PixelArtistry**.\n\n## How to use\n1. Put your mesh into `ComfyUI/input` and type its name in **Your mesh**.\n2. Load the image the mesh was made from in **Load Image**.\n3. Set your Blender path once in **Blender path** (purple group 1).\n4. Keep **Boolean (Switch to Trellis2)** on `true`. Pixal3D projects the image onto the model from the camera it estimated, so it can only texture shapes it generated itself \u2013 on your own mesh it gives black textures.\n5. Press **Run**.\n\n## What happens\nThe **TRELLIS.2 shape encoder** reads your mesh \u2192 Pixal3D / Trellis.2 generate its textures from your image \u2192 baked onto your mesh (`PixelArtistry_textured`) \u2192 **LODTailor** builds a low-poly \u2192 **Bake Forger** bakes all maps onto it \u2192 **Fast Merge** welds duplicate vertices without breaking the UVs (`PixelArtistry_lowpoly`).\n\n## PixelArtistry\n- Website: https://pixel-artistry.com\n- YouTube: https://www.youtube.com/@PixelArtistry_\n- X: https://x.com/philippsieben\n- Newsletter FutureFrames: https://go.pixel-artistry.com/newsletter\n\n## Built with MostAadTech's nodes\nThe watertight, low-poly and baking steps in this workflow run on free, open-source ComfyUI nodes by **MostAadTech**. He spent over a month building them and was a huge help while these workflows were made \u2013 please show him some love:\n\n- **Memory Cleaner** \u2013 frees VRAM between the heavy steps\n- **Trellis2 Mesh Encoder** \u2013 reads your own mesh into TRELLIS.2\n- **CuMesh Decimate** \u2013 fast GPU decimation\n- **LODTailor** \u2013 builds the lighter or low-poly mesh in Blender\n- **Bake Forger** \u2013 bakes the high-poly maps onto the low-poly\n- **Fast Merge** \u2013 welds duplicate vertices for a clean final file\n\n**Follow & support MostAadTech**\n- YouTube: https://www.youtube.com/@MostAadTech\n- Patreon: https://www.patreon.com/cw/MostafaAwad/membership\n- GitHub: https://github.com/Mstafa-awad\n- X: https://x.com/MostAadTech\n\n---\n\nWorkflow built on ComfyUI's official Pixal3D / Trellis.2 template (MIT, \u00a9 Comfy Org)."
       ]
     },
     {
